@@ -1,13 +1,9 @@
-# iron/go:dev is the alpine image with the go tools added
-FROM iron/go:dev
+# iron/go is the alpine image with only ca-certificates added
+FROM iron/go
 
 WORKDIR /app
 
-# Set an env var that matches your github repo name, replace treeder/dockergo here with your repo name
-ENV SRC_DIR=/go/src/github.com/nasr4/dockerize_golang_app/
-# Add the source code:
-ADD . $SRC_DIR
-# Build it:
-RUN cd $SRC_DIR; go build -o myapp; cp myapp /app/
+# Now just add the binary
+ADD myapp /app/
 
 ENTRYPOINT ["./myapp"]
